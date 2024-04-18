@@ -24,8 +24,8 @@ resource "aws_grafana_workspace" "this" {
     for_each = length(var.network_access_control) > 0 ? [var.network_access_control] : []
 
     content {
-      prefix_list_ids = network_access_control.value.prefix_list_ids
-      vpce_ids        = network_access_control.value.vpce_ids
+      prefix_list_ids = try(network_access_control.value.prefix_list_ids, [])
+      vpce_ids        = try(network_access_control.value.vpce_ids, [])
     }
   }
 
